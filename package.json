@@ -25,7 +25,13 @@
     "babel-preset-stage-3": "^6.24.1",
     "eslint-cli": "^1.1.1",
     "graphql": "^14.0.2",
-    "nodemon": "^1.18.7"
+    "mongoose": "^5.3.14",
+    "mongoose-bcrypt": "^1.6.0",
+    "mongoose-string-query": "^0.2.5",
+    "mongoose-timestamp": "^0.6.0",
+    "mysql2": "^1.6.4",
+    "nodemon": "^1.18.7",
+    "sequelize": "^4.41.2"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
