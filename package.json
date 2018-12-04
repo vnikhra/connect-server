@@ -25,6 +25,7 @@
     "babel-preset-stage-3": "^6.24.1",
     "eslint-cli": "^1.1.1",
     "graphql": "^14.0.2",
+    "merge-graphql-schemas": "^1.5.8",
     "mongoose": "^5.3.14",
     "mongoose-bcrypt": "^1.6.0",
     "mongoose-string-query": "^0.2.5",
