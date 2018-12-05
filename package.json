@@ -23,6 +23,7 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-3": "^6.24.1",
+    "bcrypt": "^3.0.2",
     "eslint-cli": "^1.1.1",
     "graphql": "^14.0.2",
     "merge-graphql-schemas": "^1.5.8",
