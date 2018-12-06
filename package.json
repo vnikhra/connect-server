@@ -26,6 +26,7 @@
     "bcrypt": "^3.0.2",
     "eslint-cli": "^1.1.1",
     "graphql": "^14.0.2",
+    "lodash": "^4.17.11",
     "merge-graphql-schemas": "^1.5.8",
     "mongoose": "^5.3.14",
     "mongoose-bcrypt": "^1.6.0",
