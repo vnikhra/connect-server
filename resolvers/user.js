@@ -1,4 +1,4 @@
-import Bcyrpt from "bcrypt";
+import Bcrypt from "bcrypt";
 import _ from "lodash";
 
 const formatErrors = (e, models) => {
@@ -17,7 +17,7 @@ export default {
   Mutation: {
     register: async (parent, { password, ...otherArgs }, { models }) => {
       try {
-        const hashedPassword = await Bcyrpt.hash(password, 12);
+        const hashedPassword = await Bcrypt.hash(password, 12);
         const user = await models.User.create({
           ...otherArgs,
           password: hashedPassword

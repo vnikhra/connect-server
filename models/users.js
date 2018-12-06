@@ -6,11 +6,11 @@ export default (sequelize, DataTypes) => {
         args: true,
         msg: "Username already exists !!!"
       },
+      allowNull: {
+        args: false,
+        msg: "Username cannot be empty"
+      },
       validate: {
-        notNull: {
-          args: true,
-          msg: "Username cannot be empty"
-        },
         notEmpty: {
           args: true,
           msg: "Username cannot be empty"
@@ -31,28 +31,28 @@ export default (sequelize, DataTypes) => {
         args: true,
         msg: "Email already exists !!!"
       },
+      allowNull: {
+        args: false,
+        msg: "Email cannot be empty"
+      },
       validate: {
-        notNull: {
-          args: true,
-          msg: "Email cannot be empty"
-        },
         notEmpty: {
           args: true,
           msg: "Email cannot be empty"
         },
         isEmail: {
           args: true,
-          msg: "Mot a valid Email"
+          msg: "Not a valid Email"
         }
       }
     },
     password: {
       type: DataTypes.STRING,
+      allowNull: {
+        args: false,
+        msg: "Password cannot be empty"
+      },
       validate: {
-        notNull: {
-          args: true,
-          msg: "Password cannot be empty"
-        },
         notEmpty: {
           args: true,
           msg: "Password cannot be empty"
