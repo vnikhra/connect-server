@@ -3,6 +3,9 @@ import path from "path";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
 import { ApolloServer, gql } from "apollo-server";
 
+const SECRET = "ahdwkhdh21eh2rkjfh2ih432ytr8ufhw";
+const SECRET2 = "l73973;qkd;qkfd;qjk'1i291iqfkcoekflwejf;l";
+
 const typeDefs = gql(mergeTypes(fileLoader(path.join(__dirname, "./schemas"))));
 
 const resolvers = mergeResolvers(
@@ -16,7 +19,9 @@ const server = new ApolloServer({
     models,
     user: {
       id: 1
-    }
+    },
+    SECRET,
+    SECRET2
   }
 });
 
