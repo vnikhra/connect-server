@@ -1,12 +1,17 @@
 import models from "./models";
 import path from "path";
+import express from "express";
 import { fileLoader, mergeTypes, mergeResolvers } from "merge-graphql-schemas";
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer, gql } from "apollo-server-express";
+import { addUser } from "./utils/addUser";
+import cors from "cors";
 
-const SECRET = "ahdwkhdh21eh2rkjfh2ih432ytr8ufhw";
-const SECRET2 = "l73973;qkd;qkfd;qjk'1i291iqfkcoekflwejf;l";
+export const SECRET = "ahdwkhdh21eh2rkjfh2ih432ytr8ufhw";
+export const SECRET2 = "l73973;qkd;qkfd;qjk'1i291iqfkcoekflwejf;l";
 
 const typeDefs = gql(mergeTypes(fileLoader(path.join(__dirname, "./schemas"))));
+
+const app = express();
 
 const resolvers = mergeResolvers(
   fileLoader(path.join(__dirname, "./resolvers"))
@@ -15,18 +20,21 @@ const resolvers = mergeResolvers(
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {
+  context: ({ req, res }) => ({
     models,
-    user: {
-      id: 1
-    },
+    user: req.user,
     SECRET,
     SECRET2
-  }
+  })
 });
 
+app.use(addUser);
+app.use(cors());
+
+server.applyMiddleware({ app });
+
 models.sequelize.sync().then(() => {
-  server.listen(4000).then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
-  });
+  app.listen(4000, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  );
 });
