@@ -3,7 +3,8 @@
 import Sequelize from "sequelize";
 
 const sequelize = new Sequelize("slack", "slack", "slack", {
-  dialect: "mysql"
+  dialect: "mysql",
+  operatorsAliases: Sequelize.Op
 });
 
 const models = {
