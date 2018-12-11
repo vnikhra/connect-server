@@ -4,7 +4,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     public: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   });
 
