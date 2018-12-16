@@ -11,15 +11,18 @@ export default {
     createTeam: requiresAuth.createResolver(
       async (parent, args, { models, user }) => {
         try {
-          const team = await models.Team.create({ ...args, owner: user.id });
-          await models.Channel.create({ name: "general", teamId: team.id });
-          await models.Channel.create({
-            name: "announcements",
-            teamId: team.id
+          const response = models.sequelize.transaction(async () => {
+            const team = await models.Team.create({ ...args, owner: user.id });
+            await models.Channel.create({ name: "general", teamId: team.id });
+            await models.Channel.create({
+              name: "announcements",
+              teamId: team.id
+            });
+            return team;
           });
           return {
             ok: true,
-            team
+            team: response
           };
         } catch (err) {
           return {
@@ -55,7 +58,7 @@ export default {
               ]
             };
           }
-          if(!userToAdd){
+          if (!userToAdd) {
             return {
               ok: false,
               errors: [
