@@ -9,6 +9,8 @@ import cors from "cors";
 import { createServer } from "http";
 import { execute, subscribe } from "graphql";
 import { SubscriptionServer } from "subscriptions-transport-ws";
+import jwt from "jsonwebtoken";
+import { refreshTokens } from "./utils/auth";
 
 export const SECRET = "ahdwkhdh21eh2rkjfh2ih432ytr8ufhw";
 export const SECRET2 = "l73973;qkd;qkfd;qjk'1i291iqfkcoekflwejf;l";
@@ -50,7 +52,30 @@ models.sequelize.sync({ force: false }).then(() => {
       {
         schema,
         execute,
-        subscribe
+        subscribe,
+        onConnect: async ({ token, refreshToken }, webSocket) => {
+          if (token && refreshToken) {
+            let user = null;
+            try {
+              const payload = jwt.verify(token, SECRET);
+              user = payload.user;
+            } catch (err) {
+              const newTokens = await refreshTokens(
+                token,
+                refreshToken,
+                models,
+                SECRET,
+                SECRET2
+              );
+              user = newTokens.user;
+            }
+            if (!user) {
+              throw new Error("Invalid auth tokens");
+            }
+            return true;
+          }
+          throw new Error("Missing auth tokens");
+        }
       },
       {
         server: httpServer,
